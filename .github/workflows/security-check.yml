@@ -1,0 +1,22 @@
+name: Security CI
+
+on:
+  pull_request:
+    branches: [ "main" ] # 只要有人向 main 发起 PR，就触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        pip install bandit pytest flask
+    - name: Run Bandit (Security Scan)
+      run: bandit -r server/ # 扫描 server 文件夹
+    - name: Run Pytest (Unit Tests)
+      run: pytest tests/    # 运行测试文件夹
