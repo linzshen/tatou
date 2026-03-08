@@ -9,3 +9,6 @@ def test_healthz_route():
     
 def say_hello():
     return 'hello world'
+
+def say_bye():
+    return "bye bye"
